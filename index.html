@@ -170,6 +170,70 @@
             border-color: var(--accent-glow);
             box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
         }
+
+        /* ========================================= */
+        /* --- MOBILE-ONLY ENHANCEMENTS & TWEAKS --- */
+        /* ========================================= */
+        
+        /* Hide dock on Desktop */
+        @media (min-width: 769px) {
+            .mobile-dock { display: none; }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                -webkit-tap-highlight-color: transparent; /* Clean tap visual */
+            }
+
+            /* Floating Bottom Dock */
+            .mobile-dock {
+                display: flex;
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 90%;
+                max-width: 400px;
+                height: 65px;
+                background: rgba(10, 15, 30, 0.85);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border: 1px solid var(--glass-border);
+                border-radius: 35px;
+                z-index: 100;
+                justify-content: space-around;
+                align-items: center;
+                padding: 0 10px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            }
+
+            /* Smooth Reveal (Mobile Only) */
+            .reveal {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.8s ease-out;
+            }
+            .reveal.active {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            /* Mobile Pulse for Hero */
+            @keyframes mobile-pulse {
+                0% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0.5); }
+                70% { box-shadow: 0 0 0 20px rgba(139, 92, 246, 0); }
+                100% { box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+            }
+            .mobile-glow {
+                animation: mobile-pulse 2s infinite;
+            }
+
+            /* Taptic Feedback (Active State Shrink) */
+            .glass-panel:active, .contact-icon-card:active, .mobile-dock a:active {
+                transform: scale(0.96) !important;
+                transition: transform 0.1s ease;
+            }
+        }
     </style>
 </head>
 <body class="p-0 m-0">
@@ -178,6 +242,13 @@
         <div class="aurora-element aurora-1"></div>
         <div class="aurora-element aurora-2"></div>
         <div class="aurora-element aurora-3"></div>
+    </div>
+
+    <div class="mobile-dock">
+        <a href="#hero" class="p-3 text-accent-cyan"><i data-lucide="home"></i></a>
+        <a href="#skills" class="p-3 text-secondary hover:text-white transition"><i data-lucide="code-2"></i></a>
+        <a href="#projects" class="p-3 text-secondary hover:text-white transition"><i data-lucide="briefcase"></i></a>
+        <a href="#contact" class="p-3 text-accent-pink"><i data-lucide="message-circle"></i></a>
     </div>
 
     <nav class="fixed top-0 left-0 w-full z-50 glass-panel !rounded-none !border-t-0 !border-x-0 bg-[rgba(10,15,30,0.8)] px-4 md:px-12 py-3 flex items-center justify-between">
@@ -194,11 +265,11 @@
         </div>
     </nav>
 
-    <header id="hero" class="min-h-screen pt-28 pb-16 md:pt-32 md:pb-24 px-4 md:px-12 flex flex-col justify-center items-center text-center">
+    <header id="hero" class="reveal min-h-screen pt-28 pb-16 md:pt-32 md:pb-24 px-4 md:px-12 flex flex-col justify-center items-center text-center">
         <div class="glass-panel p-6 md:p-10 max-w-7xl flex flex-col md:flex-row items-center gap-8 md:gap-10">
             <div class="w-full md:w-1/3 flex flex-col items-center gap-6">
                 <div class="profile-img-container relative flex items-center justify-center p-1 w-48 h-48 md:w-64 md:h-64 shrink-0">
-                    <img src="square.jpeg" alt="Allen Jerries A L Portrait" class="w-full h-full rounded-full object-cover shadow-inner bg-neutral-900 border-4 border-accent-glow">
+                    <img src="square.jpeg" alt="Allen Jerries A L Portrait" class="mobile-glow w-full h-full rounded-full object-cover shadow-inner bg-neutral-900 border-4 border-accent-glow">
                 </div>
                 
                 <div class="flex items-center gap-4">
@@ -235,7 +306,7 @@
         </div>
     </header>
 
-    <section id="about" class="py-16 md:py-24 px-4 md:px-12">
+    <section id="about" class="reveal py-16 md:py-24 px-4 md:px-12">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-10">
             <div class="lg:col-span-2 glass-panel p-6 md:p-10 flex flex-col gap-6">
                 <h3 class="text-3xl md:text-5xl font-extrabold tracking-tighter text-white flex items-center gap-3 md:gap-4"><i data-lucide="user-plus" class="w-8 h-8 md:w-10 md:h-10 text-accent-glow"></i> Professional Summary</h3>
@@ -253,7 +324,7 @@
         </div>
     </section>
 
-    <section id="skills" class="py-16 md:py-24 px-4 md:px-12 bg-[rgba(10,15,30,0.6)]">
+    <section id="skills" class="reveal py-16 md:py-24 px-4 md:px-12 bg-[rgba(10,15,30,0.6)]">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 md:mb-16 flex flex-col items-center">
                 <span class="text-accent-cyan tracking-widest uppercase font-semibold text-xs md:text-sm">TECH STACK</span>
@@ -301,7 +372,7 @@
         </div>
     </section>
 
-    <section id="education" class="py-16 md:py-24 px-4 md:px-12 timeline-section">
+    <section id="education" class="reveal py-16 md:py-24 px-4 md:px-12 timeline-section">
         <div class="max-w-7xl mx-auto flex flex-col gap-10">
             <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tighter text-center md:text-left">Academic & Professional Timeline</h2>
             
@@ -375,7 +446,7 @@
         </div>
     </section>
 
-    <section id="projects" class="py-16 md:py-24 px-4 md:px-12 bg-[rgba(10,15,30,0.6)]">
+    <section id="projects" class="reveal py-16 md:py-24 px-4 md:px-12 bg-[rgba(10,15,30,0.6)]">
         <div class="max-w-7xl mx-auto flex flex-col gap-10">
             <h2 class="text-4xl md:text-5xl font-extrabold text-white tracking-tighter text-center md:text-left">Featured Projects</h2>
             
@@ -436,7 +507,7 @@
         </div>
     </section>
 
-    <section id="contact" class="py-16 md:py-24 px-4 md:px-12 bg-cover bg-center" style="background-image: url('https://via.placeholder.com/1920x600/0A0F1E/1E1F2A?text=')">
+    <section id="contact" class="reveal py-16 md:py-24 px-4 md:px-12 bg-cover bg-center" style="background-image: url('https://via.placeholder.com/1920x600/0A0F1E/1E1F2A?text=')">
         <div class="max-w-7xl mx-auto flex flex-col items-center gap-10 md:gap-16">
             <div class="text-center flex flex-col items-center px-2">
                 <span class="text-accent-cyan tracking-widest uppercase font-semibold text-xs md:text-sm">LET'S CONNECT</span>
@@ -524,7 +595,7 @@
         </div>
     </section>
 
-    <footer class="py-10 md:py-12 px-4 md:px-12 bg-neutral-950 border-t border-glass-border">
+    <footer class="py-10 pb-28 md:py-12 md:pb-12 px-4 md:px-12 bg-neutral-950 border-t border-glass-border">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between text-secondary gap-6 text-center md:text-left">
             <div class="flex flex-col md:flex-row items-center gap-2 md:gap-3">
                 <span class="text-lg md:text-xl font-black text-white tracking-tighter">JER<span class="text-accent-pink">RIES</span></span>
@@ -542,6 +613,33 @@
 
     <script>
         lucide.createIcons();
+
+        // --- NEW MOBILE INTERACTION SCRIPT ---
+        // Only run the reveal animation if on a mobile screen to ensure desktop stays 100% static as requested
+        function reveal() {
+            if (window.innerWidth <= 768) {
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                    var windowHeight = window.innerHeight;
+                    var elementTop = reveals[i].getBoundingClientRect().top;
+                    var elementVisible = 100;
+                    if (elementTop < windowHeight - elementVisible) {
+                        reveals[i].classList.add("active");
+                    }
+                }
+            } else {
+                // If on desktop, force all reveals to be instantly visible
+                var reveals = document.querySelectorAll(".reveal");
+                for (var i = 0; i < reveals.length; i++) {
+                    reveals[i].style.opacity = "1";
+                    reveals[i].style.transform = "translateY(0)";
+                }
+            }
+        }
+        
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("resize", reveal);
+        reveal(); // Run once on load
     </script>
 </body>
 </html>
